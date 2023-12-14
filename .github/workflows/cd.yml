@@ -1,0 +1,69 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  BIN_DIR: "target/release"
+  BIN: autogrower-interface
+  DEB_FILE: autogrower-interface.deb
+  CARGO_TERM_COLOR: always
+  PACKAGES: libgtk-4-dev libpango1.0-dev libglib2.0-dev librust-glib-sys-dev
+
+jobs:
+  arm-32-release:
+    runs-on: ubuntu-latest
+    env:
+      TARGET: arm-unknown-linux-gnueabihf
+    steps:
+      - name: Setting up environment
+        run: |
+          sudo apt update && sudo apt-get install -y fuse-overlayfs podman
+          cargo install cross
+      - uses: actions/checkout@v3
+      - name: Build All Binaries
+        run: |
+          cross build --target $TARGET --release --verbose
+      - name: Build Deb Package
+        run: |
+          mkdir -p ./deb/bin/;
+          cp ./target/$TARGET/release/$BIN ./deb/bin;
+          chmod +x ./deb/bin/*
+          dpkg-deb -Z xz --root-owner-group --build ./deb .;
+          mv autogrower-interface_*.deb ${{ env.DEB_FILE }};
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "latest-arm-32"
+          prerelease: true
+          title: "ARM 32 Bit release"
+          files: |
+            ${{ env.DEB_FILE }}
+            ./target/${{ env.TARGET }}/release/${{ env.BIN }}
+
+  x86-64-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setting up environment
+        run: sudo apt update && sudo apt install -y $PACKAGES;
+      - uses: actions/checkout@v3
+      - name: Build All Binaries
+        run: cargo build --release --verbose
+      - name: Build Deb Package
+        run: |
+          mkdir -p ./deb/bin/;
+          cp $BIN_DIR/$BIN ./deb/bin;
+          chmod +x ./deb/bin/*
+          dpkg-deb -Z xz --root-owner-group --build ./deb .;
+          mv autogrower-interface_*.deb ${{ env.DEB_FILE }};
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "latest-x86-64"
+          prerelease: true
+          title: "x86 64 Bit release"
+          files: |
+            ${{ env.DEB_FILE }}
+            ${{ env.BIN_DIR }}/${{ env.BIN }}

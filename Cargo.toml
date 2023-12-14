@@ -1,10 +1,22 @@
 [package]
-name = "interface"
+name = "autogrower-interface"
 version = "0.1.0"
 edition = "2021"
+
+[profile.release]
+opt-level = 'z'   # Optimize for size
+lto = true        # Enable link-time optimization
+codegen-units = 1 # Reduce number of codegen units to increase optimizations
+panic = 'abort'   # Abort on panic
+strip = true      # Strip symbols from binary*
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-gtk = { version = "0.7.3", package = "gtk4", features = ["v4_8"] }
-glib = "*"
+gtk = { version = "0.7.3", package = "gtk4" }
+glib = "0.18.4"
+
+[target.arm-unknown-linux-gnueabihf]
+pre-build = [
+    "dpkg --add-architecture arm && apt-get update && apt-get install --assume-yes libgtk-4-dev:arm libpango1.0-dev:arm libglib2.0-dev:arm librust-glib-sys-dev:arm",
+]
