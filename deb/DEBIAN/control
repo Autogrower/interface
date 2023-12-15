@@ -5,4 +5,4 @@ Priority: optional
 Architecture: all
 Maintainer: Autogrower <autogrower_2025@labeip.epitech.eu>
 Description: This contains the graphical interface of the embedded device
-Depends: libgtk-4-bin, cage
+Depends: libgtk-4-bin, cage, xwayland
