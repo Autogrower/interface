@@ -2,6 +2,6 @@
 
 echo "Post install script is running now."
 
-ln -s /etc/systemd/system/cage@.service /etc/systemd/system/graphical.target.wants/cage@tty1.service;
-
-ln -s /etc/systemd/system/default.target /usr/lib/systemd/system/graphical.target;
+echo -e "Execute the following lines to activate the program:\n" \
+        "\systemctl enable cage@tty1.service;\n" \
+        "\tln -s /etc/systemd/system/default.target /usr/lib/systemd/system/graphical.target;\n"
