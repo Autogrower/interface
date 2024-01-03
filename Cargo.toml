@@ -15,8 +15,12 @@ strip = true      # Strip symbols from binary*
 [dependencies]
 gtk = { version = "0.7.3", package = "gtk4" }
 glib = "0.18.4"
+device-db = { git = "https://github.com/Autogrower/device-commons" }
 
-[target.arm-unknown-linux-gnueabihf]
-pre-build = [
-    "dpkg --add-architecture arm && apt-get update && apt-get install --assume-yes libgtk-4-dev:arm libpango1.0-dev:arm libglib2.0-dev:arm librust-glib-sys-dev:arm",
-]
+# [target.arm-unknown-linux-gnueabihf]
+# pre-build = [
+#     "dpkg --add-architecture arm && apt-get update && apt-get install --assume-yes libgtk-4-dev:arm libpango1.0-dev:arm libglib2.0-dev:arm librust-glib-sys-dev:arm",
+# ]
+
+[build-dependencies]
+glib-build-tools = "0.18.0"

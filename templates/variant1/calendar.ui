@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <template class="Calendar" parent="GtkWidget">
+        <child>
+            <object class="GtkFrame">
+                <property name="label">Calendar Tasks</property>
+                <property name="vexpand">1</property>
+                <property name="hexpand">1</property>
+            </object>
+        </child>
+    </template>
+</interface>
