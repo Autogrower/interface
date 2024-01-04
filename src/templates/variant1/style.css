@@ -1,0 +1,11 @@
+calendar-entry label:nth-child(2) {
+  opacity: 0.5;
+}
+
+calendar-entry {
+  font-size: x-large;
+}
+
+frame {
+  border-radius: 2em;
+}

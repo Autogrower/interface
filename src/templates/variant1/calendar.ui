@@ -3,9 +3,17 @@
     <template class="Calendar" parent="GtkWidget">
         <child>
             <object class="GtkFrame">
-                <property name="label">Calendar Tasks</property>
                 <property name="vexpand">1</property>
                 <property name="hexpand">1</property>
+
+                <child>
+                    <object class="GtkBox" id="events">
+                        <property name="orientation">vertical</property>
+                        <!-- <property name="spacing">12</property> -->
+
+                    </object>
+
+                </child>
             </object>
         </child>
     </template>
