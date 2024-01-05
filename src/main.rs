@@ -16,6 +16,12 @@ use window::Window;
 const APP_ID: &str = "org.gtk_rs.CompositeTemplates1";
 
 fn main() -> glib::ExitCode {
+    let mut builder = colog::builder();
+
+    builder.filter_level(log::LevelFilter::Debug);
+
+    builder.init();
+
     // Informing GTK on the existence of those widgets, important for template linking
     Calendar::static_type();
     CalendarEntry::static_type();

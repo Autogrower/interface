@@ -2,15 +2,28 @@
 <interface>
     <template class="Gauge" parent="GtkWidget">
         <property name="hexpand">1</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
+        <property name="margin-top">18</property>
+        <property name="margin-bottom">18</property>
+        <property name="margin-start">18</property>
+        <property name="margin-end">18</property>
+
         <child>
-            <object class="GtkDrawingArea" id="area">
-                <property name="hexpand">1</property>
-                <property name="vexpand">1</property>
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="GtkDrawingArea" id="area">
+                        <property name="hexpand">1</property>
+                        <property name="vexpand">1</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="label">
+                        <property name="label"></property>
+                    </object>
+                </child>
             </object>
+
         </child>
+
     </template>
 </interface>

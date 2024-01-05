@@ -8,7 +8,6 @@
                 <property name="label-xalign">0.5</property>
                 <property name="vexpand">1</property>
                 <property name="hexpand">1</property>
-                <!-- <property name="padding-start">6</property> -->
 
                 <child>
                     <object class="GtkBox">
@@ -18,7 +17,9 @@
                                 <property name="name">Water</property>
                                 <property name="min">0</property>
                                 <property name="max">100</property>
-
+                                <property name="name">Water</property>
+                                <property name="margin-start">18</property>
+                                <property name="margin-end">9</property>
                             </object>
 
                         </child>
@@ -26,6 +27,9 @@
                             <object class="Gauge" id="ph">
                                 <property name="min">0</property>
                                 <property name="max">14</property>
+                                <property name="name">PH</property>
+                                <property name="margin-start">9</property>
+                                <property name="margin-end">9</property>
                             </object>
                         </child>
                         <child>
@@ -33,6 +37,9 @@
                                 <property name="name">EC</property>
                                 <property name="min">0</property>
                                 <property name="max">100</property>
+                                <property name="name">EC</property>
+                                <property name="margin-start">9</property>
+                                <property name="margin-end">18</property>
                             </object>
                         </child>
                     </object>
