@@ -6,5 +6,11 @@
         <property name="margin-bottom">6</property>
         <property name="margin-start">6</property>
         <property name="margin-end">6</property>
+        <child>
+            <object class="GtkDrawingArea" id="area">
+                <property name="hexpand">1</property>
+                <property name="vexpand">1</property>
+            </object>
+        </child>
     </template>
 </interface>

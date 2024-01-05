@@ -1,4 +1,3 @@
-use gtk::prelude::BoxExt;
 use gtk::subclass::prelude::*;
 use gtk::{glib, CompositeTemplate};
 

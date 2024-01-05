@@ -1,14 +1,9 @@
-use gtk::cairo;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::CompositeTemplate;
-use plotters::prelude::*;
-use plotters_cairo::CairoBackend;
 use std::cell::Cell;
 use std::cell::RefCell;
-use std::error::Error;
-
 #[derive(Debug, Default, glib::Properties, CompositeTemplate)]
 #[properties(wrapper_type = super::Gauge)]
 #[template(resource = "/org/gtk_rs/example/gauge.ui")]
@@ -21,6 +16,8 @@ pub struct Gauge {
     current: Cell<f32>,
     #[property(get, set)]
     name: RefCell<String>,
+    #[template_child]
+    area: TemplateChild<gtk::DrawingArea>,
 }
 
 #[glib::object_subclass]
@@ -52,39 +49,29 @@ impl ObjectImpl for Gauge {
     fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
         Self::derived_property(self, id, pspec)
     }
-}
 
-impl WidgetImpl for Gauge {
-    fn snapshot(&self, snapshot: &gtk::Snapshot) {
-        let width = self.obj().width() as u32;
-        let height = self.obj().height() as u32;
-        if width == 0 || height == 0 {
-            return;
-        }
+    fn constructed(&self) {
+        self.area.set_draw_func(move |area, ct, width, height| {
+            let parent = area.parent().unwrap();
 
-        let bounds = gtk::graphene::Rect::new(0.0, 0.0, width as f32, height as f32);
-        let cr = snapshot.append_cairo(&bounds);
-        let backend = CairoBackend::new(&cr, (width, height)).unwrap();
-        self.plot_pdf(backend).unwrap();
+            let cur: f32 = parent.property_value("current").get().unwrap_or(0.0);
+            let min: f32 = parent.property_value("min").get().unwrap_or(0.0);
+            let max: f32 = parent.property_value("max").get().unwrap_or(0.0);
+
+            let percentage: f32 = cur / max - min;
+            let upper_bound: i32 = height - (height as f32 * percentage) as i32;
+
+            let rectangle = gtk::gdk::Rectangle::new(0, upper_bound, width, height);
+
+            ct.add_rectangle(&rectangle);
+
+            ct.set_source_rgb(1., 0., 0.);
+
+            ct.fill().unwrap_or_default();
+        });
+        // Call "constructed" on parent
+        self.parent_constructed();
     }
 }
 
-impl Gauge {
-    fn plot_pdf<'a, DB: DrawingBackend + 'a>(
-        &self,
-        mut backend: DB,
-    ) -> Result<(), Box<dyn Error + 'a>> {
-        let width = self.obj().width() as i32;
-        let height = self.obj().height() as i32;
-
-        let percentage: f32 = self.current.get() / (self.max.get() - self.min.get());
-
-        let upper_bound: i32 = height - (height as f32 * percentage) as i32;
-
-        backend
-            .draw_rect((0, upper_bound), (width, height), &CYAN, true)
-            .unwrap();
-
-        Ok(())
-    }
-}
+impl WidgetImpl for Gauge {}
