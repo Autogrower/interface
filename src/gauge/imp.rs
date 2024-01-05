@@ -103,15 +103,15 @@ fn draw_current(ct: &Context, parent: gtk::Widget, width: f64, height: f64) {
     let max: f64 = parent.property_value("max").get::<f32>().unwrap_or(0.0) as f64;
 
     let percentage: f64 = cur / (max - min);
-    let upper_bound: f64 = height as f64 - (height as f64 * percentage);
-    let offset: f64 = ((width + height) as f64 / 2.0) * 0.01;
+    let upper_bound: f64 = height - (height * percentage);
+    let offset: f64 = ((width + height) / 2.0) * 0.01;
 
     rounded_rect(
         ct,
         offset,
         offset + upper_bound,
-        width as f64 - offset,
-        height as f64 - offset,
+        width - offset,
+        height - offset,
         5.0,
     );
 
