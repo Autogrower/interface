@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkHeaderBar">
-
-    <property name="title-widget">
-      <object class="GtkLabel">
-        <property name="label" translatable="yes">Label</property>
-        <property name="single-line-mode">True</property>
-        <property name="ellipsize">end</property>
-        <property name="width-chars">5</property>
-        <style>
-          <class name="title" />
-        </style>
-      </object>
-    </property>
-  </object>
-
-  <template class="MyGtkAppWindow" parent="GtkApplicationWindow">
+  <template class="MainWindow" parent="GtkApplicationWindow">
     <property name="title">My GTK App</property>
-
     <child>
       <object class="GtkGrid" id="my_grid">
         <child>
@@ -36,9 +20,7 @@
         </child>
 
         <child>
-          <object class="GtkFrame">
-            <property name="label">Sensor data</property>
-            <property name="label-xalign">0.5</property>
+          <object class="Gauges">
             <property name="margin-top">12</property>
             <property name="margin-bottom">12</property>
             <property name="margin-start">12</property>

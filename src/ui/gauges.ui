@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <template class="Gauges" parent="GtkWidget">
+        <child>
+            <object class="GtkFrame" id="sensors">
+
+                <property name="label">Sensor data</property>
+                <property name="label-xalign">0.5</property>
+                <property name="vexpand">1</property>
+                <property name="hexpand">1</property>
+                <!-- <property name="padding-start">6</property> -->
+
+                <child>
+                    <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <child>
+                            <object class="Gauge" id="water">
+                                <property name="name">Water</property>
+                                <property name="min">0</property>
+                                <property name="max">100</property>
+
+                            </object>
+
+                        </child>
+                        <child>
+                            <object class="Gauge" id="ph">
+                                <property name="min">0</property>
+                                <property name="max">14</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="Gauge" id="ec">
+                                <property name="name">EC</property>
+                                <property name="min">0</property>
+                                <property name="max">100</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

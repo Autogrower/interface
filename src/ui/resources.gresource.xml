@@ -4,6 +4,7 @@
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">calendar.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">calendar-entry.ui</file>
-    <file compressed="true">style.css</file>
+    <file compressed="true" preprocess="xml-stripblanks">gauges.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">gauge.ui</file>
   </gresource>
 </gresources>

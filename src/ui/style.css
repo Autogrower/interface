@@ -8,4 +8,9 @@ calendar-entry {
 
 frame {
   border-radius: 2em;
+  background-color: #ffffff;
+}
+
+custom-window {
+  background-color: #fafafa;
 }
